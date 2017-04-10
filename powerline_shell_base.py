@@ -6,6 +6,12 @@ import argparse
 import os
 import sys
 
+# Don't break support for Python 3
+try:
+    from shlex import quote as cmd_quote
+except ImportError:
+    from pipes import quote as cmd_quote
+
 py3 = sys.version_info.major == 3
 
 
@@ -71,7 +77,8 @@ class Powerline:
         return self.color('48', code)
 
     def append(self, content, fg, bg, separator=None, separator_fg=None):
-        self.segments.append((content, fg, bg,
+        self.segments.append((cmd_quote(content), fg, bg,
+        #self.segments.append((content, fg, bg,
             separator if separator is not None else self.separator,
             separator_fg if separator_fg is not None else bg))
 

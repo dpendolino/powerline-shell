@@ -24,7 +24,8 @@ def git_subprocess_env():
 
 
 def parse_git_branch_info(status):
-    info = re.search('^## (?P<local>\S+?)''(\.{3}(?P<remote>\S+?)( \[(ahead (?P<ahead>\d+)(, )?)?(behind (?P<behind>\d+))?\])?)?$', shlex.quote(status[0]))
+    info = re.search('^## (?P<local>\S+?)''(\.{3}(?P<remote>\S+?)( \[(ahead (?P<ahead>\d+)(, )?)?(behind (?P<behind>\d+))?\])?)?$', status[0])
+
     return info.groupdict() if info else None
 
 
